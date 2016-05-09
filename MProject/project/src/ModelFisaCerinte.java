@@ -53,12 +53,12 @@ public class ModelFisaCerinte {
             Attr attrActoriNume[]=new Attr[actoriObiective.getActorObiectivList().size()];
 
             for(int i=0;i<actoriObiective.getActorObiectivList().size();i++){
-                actorObiectivElement[i]=doc.createElement("ActorObiectiv"+i);
+                actorObiectivElement[i]=doc.createElement("ActorObiectiv");
                 attrActoriNume[i]=doc.createAttribute("numeActor");
             }
 
             for(int i=0;i<actionariInterese.getActionarInteresList().size();i++){
-                actionarInteresElement[i]=doc.createElement("ActionarInteres"+i);
+                actionarInteresElement[i]=doc.createElement("ActionarInteres"   );
                 attrActionarNume[i]=doc.createAttribute("numeActionar");
             }
 
@@ -87,7 +87,7 @@ public class ModelFisaCerinte {
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
             DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(new File("/home/m/unixstuff/IP/Project/project/FisaCerinte.xml"));
+            StreamResult result = new StreamResult(new File("/home/m/unixstuff/IP/MProject/project/FisaCerinte.xml"));
             transformer.transform(source, result);
             // Output to console for testing
             StreamResult consoleResult = new StreamResult(System.out);
