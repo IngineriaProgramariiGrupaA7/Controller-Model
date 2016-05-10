@@ -1,4 +1,3 @@
-import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -18,12 +17,14 @@ public class ModelFisaCerinte {
     public Domeniu domeniu;
     public Descriere descriere;
     public ActoriObiective actoriObiective;
+    public ScenariiDeUtilizare scenariiDeUtilizare;
 
-    public ModelFisaCerinte(Descriere descriere,Domeniu domeniu,ActionariInterese actionariInterese,ActoriObiective actoriObiective){
+    public ModelFisaCerinte(Descriere descriere,Domeniu domeniu,ActionariInterese actionariInterese,ActoriObiective actoriObiective,ScenariiDeUtilizare scenariiDeUtilizare){
         this.descriere=descriere;
         this.domeniu=domeniu;
         this.actionariInterese=actionariInterese;
         this.actoriObiective=actoriObiective;
+        this.scenariiDeUtilizare=scenariiDeUtilizare;
     }
 
     public void makeXML(){
@@ -34,55 +35,61 @@ public class ModelFisaCerinte {
             Element rootElement =doc.createElement("FisaCerinte");
             doc.appendChild(rootElement);
 
-            Element descriereElement=doc.createElement("Descriere");
-            descriereElement.appendChild(doc.createTextNode(descriere.getPlaintext()));
+            Element descriptionElement;
+            Element nameElement;
+
+
+            Element descriereElement=doc.createElement("descriptionApplication");
+            descriptionElement=doc.createElement("description");
+            descriptionElement.setTextContent(descriere.getPlaintext());
+            descriereElement.appendChild(descriptionElement);
             rootElement.appendChild(descriereElement);
 
-            Element domeniuElement=doc.createElement("Domeniu");
-            domeniuElement.appendChild(doc.createTextNode(domeniu.getPlaintext()));
+            Element domeniuElement=doc.createElement("domain");
+            descriptionElement=doc.createElement("description");
+            descriptionElement.setTextContent(domeniu.getPlaintext());
+            domeniuElement.appendChild(descriptionElement);
             rootElement.appendChild(domeniuElement);
 
 
-            Element actionariIntereseElement=doc.createElement("ActionariInterese");
-
+            Element actionariIntereseElement=doc.createElement("shareholders");
             Element actionarInteresElement[]=new Element[actionariInterese.getActionarInteresList().size()];
-            Attr attrActionarNume[]=new Attr[actionariInterese.getActionarInteresList().size()];
 
-            Element actoriObiectiveElement=doc.createElement("ActoriObiective");
+            Element actoriObiectiveElement=doc.createElement("actors");
             Element actorObiectivElement[]=new Element[actoriObiective.getActorObiectivList().size()];
-            Attr attrActoriNume[]=new Attr[actoriObiective.getActorObiectivList().size()];
 
             for(int i=0;i<actoriObiective.getActorObiectivList().size();i++){
-                actorObiectivElement[i]=doc.createElement("ActorObiectiv");
-                attrActoriNume[i]=doc.createAttribute("numeActor");
+                actorObiectivElement[i]=doc.createElement("actor");
             }
 
             for(int i=0;i<actionariInterese.getActionarInteresList().size();i++){
-                actionarInteresElement[i]=doc.createElement("ActionarInteres"   );
-                attrActionarNume[i]=doc.createAttribute("numeActionar");
+                actionarInteresElement[i]=doc.createElement("shareholder");
             }
 
             for(int i=0;i<actoriObiective.getActorObiectivList().size();i++){
-                attrActoriNume[i].setValue(actoriObiective.getActorObiectivList().get(i).getNumeActor());
-                actorObiectivElement[i].setAttributeNode(attrActoriNume[i]);
-                actorObiectivElement[i].appendChild(doc.createTextNode(actoriObiective.getActorObiectivList().get(i).getTextObiectiv()));
+                descriptionElement=doc.createElement("description");
+                descriptionElement.setTextContent("description actor"+i);
+                nameElement=doc.createElement("name");
+                nameElement.setTextContent("actor"+i);
+                actorObiectivElement[i].appendChild(nameElement);
+                actorObiectivElement[i].appendChild(descriptionElement);
                 actoriObiectiveElement.appendChild(actorObiectivElement[i]);
             }
 
 
             for(int i=0;i<actionariInterese.getActionarInteresList().size();i++){
-                attrActionarNume[i].setValue(actionariInterese.getActionarInteresList().get(i).getNumeActionar());
-                actionarInteresElement[i].setAttributeNode(attrActionarNume[i]);
-                actionarInteresElement[i].appendChild(doc.createTextNode(actionariInterese.getActionarInteresList().get(i).getTextInteres()));
+                descriptionElement=doc.createElement("description");
+                descriptionElement.setTextContent("description shareholder"+i);
+                nameElement=doc.createElement("name");
+                nameElement.setTextContent("shareholder"+i);
+                actionarInteresElement[i].appendChild(nameElement);
+                actionarInteresElement[i].appendChild(descriptionElement);
                 actionariIntereseElement.appendChild(actionarInteresElement[i]);
             }
-
 
             rootElement.appendChild(actionariIntereseElement);
 
             rootElement.appendChild(actoriObiectiveElement);
-
-
 
             TransformerFactory transformerFactory = TransformerFactory.newInstance();
             Transformer transformer = transformerFactory.newTransformer();
