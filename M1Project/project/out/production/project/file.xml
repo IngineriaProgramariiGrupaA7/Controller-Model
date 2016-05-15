@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<modelFisaCerinte>
+    <appDescription>
+        <description>description text</description>
+    </appDescription>
+    <domain>
+        <description>domain text</description>
+    </domain>
+    <shareholders>
+        <name>shareholder</name>
+        <description>description</description>
+    </shareholders>
+    <shareholders>
+        <name>shareholder</name>
+        <description>description</description>
+    </shareholders>
+    <actors>
+        <name>actor</name>
+        <description>description</description>
+    </actors>
+    <actors>
+        <name>actor</name>
+        <description>description</description>
+    </actors>
+</modelFisaCerinte>
