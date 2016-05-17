@@ -1,0 +1,29 @@
+<div  id="actorsList">
+	<div class="list-item">
+    	<span class="actors_name">Untitled</span>
+		<button class="list-remove btn leftMargin"> Remove</button>
+        <button class="list-edit btn leftMargin"> Edit</button>
+        <div class="actors_edit_view popup flex containerPopup scroll">
+            <!--INCEPE POPUP-->
+            <div class="flex column mainPopup center">
+                <form onsubmit="return false;" class="frmActorsObjectives">
+                    
+
+                    <input type="text" name="actor_name" class="actor_name" placeholder="Actor name"/><br>
+                    <textarea type="text" name="objectives" class="objectives" rows="4" cols="50" placeholder="Objectives"/></br>
+                    <p>Inherits
+                        <select class="inherits"></select>
+                    </p>
+                 </form>
+                 <div class="formAll flex column">
+                    <div class="formButtons flex spaceBetween buttons">
+                        <button class="pinkBtn close cancelBtn">cancel</button>
+                        <button class="greenBtn saveBtnAO">save</button>
+                    </div>
+                </div>
+            </div>
+        	<!--v TERMINA POPUP-->
+		</div>
+	</div>
+	<button class="list-add btn">ADD</button>
+</div>
