@@ -1,15 +1,16 @@
 package PdfGenerator;
 
-import FisaCerintelor.UseCase.*;
+import FisaCerinte.ActorAndObjective;
+import FisaCerinte.FisaCerintelor;
+import FisaCerinte.StakeholderAndInterest;
+import FisaCerinte.UseCase.Extension;
+import FisaCerinte.UseCase.FCUseCase;
+import FisaCerinte.UseCase.Step;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfWriter;
-import FisaCerintelor.FisaCerintelor;
-import FisaCerintelor.*;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-
-import static java.awt.SystemColor.text;
 
 /**
  * Created by Cosmin on 5/17/2016.
@@ -44,10 +45,10 @@ public class PdfGenerator {
 
     private void addMetaData(Document document) {
         document.addTitle(model.title);
-        document.addSubject(model.description.getDescription());
+        document.addSubject(model.description);
         document.addKeywords("Java, PDF, FisaCerintelor");
-        for(Author author : model.authors){
-            document.addAuthor(author.getAuthor());
+        for(String author : model.authors){
+            document.addAuthor(author);
         }
     }
 
@@ -64,8 +65,8 @@ public class PdfGenerator {
         document.add(p);
 
         p = new Paragraph();
-        for(Author author : model.authors){
-            p.add(new Paragraph(author.getAuthor(), textFont));
+        for(String author : model.authors){
+            p.add(new Paragraph(author, textFont));
         }
         p.setIndentationLeft(400);
         document.add(p);
@@ -74,22 +75,23 @@ public class PdfGenerator {
 
         p = new Paragraph("Description", subtitleFont);
         document.add(p);
-        document.add(new Paragraph(model.description.getDescription(), textFont));
+        document.add(new Paragraph(model.description, textFont));
 
         p = new Paragraph("Domain", subtitleFont);
         document.add(p);
-        document.add(new Paragraph(model.domain.getDomain(), textFont));
+        document.add(new Paragraph(model.domain, textFont));
 
         p = new Paragraph("Stakeholders and Interests", subtitleFont);
         document.add(p);
-        for(StakeholderAndInterest stakeholder : model.stakeholders){
+        for(StakeholderAndInterest stakeholder : model.stakeholdersAndInterests){
             document.add(new Paragraph(stakeholder.getName(), boldFont));
-            document.add(new Paragraph(stakeholder.getInterest(), textFont));
+            document.add(new Paragraph(stakeholder.getInterests(), textFont));
         }
 
-        for(ActorAndObjective actor : model.actors){
+        for(ActorAndObjective actor : model.actorsAndObjectives){
             document.add(new Paragraph(actor.getName(), boldFont));
-            document.add(new Paragraph(actor.getObjective(), textFont));
+            document.add(new Paragraph(actor.getObjectives(), textFont));
+            document.add(new Paragraph(actor.getInherits(), textFont));
         }
     }
 
@@ -98,29 +100,29 @@ public class PdfGenerator {
         document.add(p);
         int i = 0;
 
-        for (FCUseCase useCase : model.getUseCases()) {
+        for (FCUseCase useCase : model.getUsecases()) {
 
             i += 1;
             document.add(new Paragraph(i + ". " + useCase.getTitle(), boldFont));
-            document.add(new Paragraph(useCase.getObjectiveAndContext(), textFont));
+            document.add(new Paragraph(useCase.getObjective(), textFont));
 
 
             document.add(new Paragraph("Actors", boldFont));
-            for (FCActor actor : useCase.getActors()) {
-                document.add(new Paragraph(actor.getName(), textFont));
+            for (String actor : useCase.getActors()) {
+                document.add(new Paragraph(actor, textFont));
             }
 
             document.add(new Paragraph("Steps", boldFont));
             for (Step step : useCase.getSteps()) {
-                document.add(new Paragraph(step.getTitleAction(), italicFont));
+                document.add(new Paragraph(step.getTitle(), italicFont));
                 document.add(new Paragraph(step.getDescription(), textFont));
             }
 
             document.add(new Paragraph("Extensions", boldFont));
             for (Extension extension : useCase.getExtensions()) {
-                document.add(new Paragraph(extension.getExtensionTitle(), italicFont));
+                document.add(new Paragraph(extension.getTitle(), italicFont));
                 document.add(new Paragraph(extension.getDescription(), textFont));
-                document.add(new Paragraph(extension.getStepTitle(), textFont));
+                document.add(new Paragraph(extension.getStep(), textFont));
             }
 
             /*document.add(new Paragraph("Relashionships", boldFont));

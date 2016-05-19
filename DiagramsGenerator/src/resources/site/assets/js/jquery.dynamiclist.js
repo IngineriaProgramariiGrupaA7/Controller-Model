@@ -26,27 +26,8 @@
             removeClass: "list-remove",
             minSize: 0,
             maxSize: 999,
-            withEvents: true,
-            addCallbackFn:
-            function(){
-                var popup = $("#actorsList").find(".list-item:last").children(".popup"),
-                    btn = $("#actorsList").find(".list-item:last").children(".list-edit");
-                popup.makePopup(btn);
-
-                var popup2 = $("#usecase_list").find(".list-item:last").children(".popup"),
-                    btn2 = $("#usecase_list").find(".list-item:last").children(".list-edit");
-                popup2.makePopup(btn2);
-
-                var popup3 = $("#stakeholdersList").find(".list-item:last").children(".popup"),
-                    btn3 = $("#stakeholdersList").find(".list-item:last").children(".list-edit");
-                popup3.makePopup(btn3);
-
-                $(".actors_list:last").dynamiclist_level2();
-                $(".steps_list:last").dynamiclist_level2();
-                $(".extensions_list:last").dynamiclist_level2();
-                $(".relationships_list:last").dynamiclist_level2();
-
-            },
+            withEvents: true,//clona fara evenimente-- afecta peste tot
+            addCallbackFn: null,
             removeCallbackFn: null
         }, options);
         
@@ -62,7 +43,6 @@
                 // clone new item from first item
                 var item = list.find("." + settings.itemClass + ":first").clone(
                     settings.withEvents);
-				
 
                 // register new item remove link
                 item.find("." + settings.removeClass).show().click(function(event) {
@@ -79,8 +59,11 @@
 				item.find(".usecase_name").text("Untitled");
 
                 // add new item
+                var next_index = parseInt(list.attr('next-index'));
+                item.attr('index', next_index);
                 var last = list.find("." + settings.itemClass + ":last");
                 last.after(item);
+                list.attr('next-index', next_index+1);
 				
                 // call back before adding
                 if (settings.addCallbackFn != null)
@@ -143,12 +126,18 @@
         }
         
         var init = function(list) {
-           
+
+            var $items = list.find("." + settings.itemClass);
+            var length = $items.length;
+            list.attr('next-index', length);
+            $items.each(function(i){
+                $(this).attr('index', i);
+            })
+
             // remove first item's remove link
             list.find("." + settings.itemClass + ":first " + "." + settings.removeClass).hide()           
            
             // initializes the list
-            var length = list.find("." + settings.itemClass).length;
             while (settings.minSize > length) {
                 handleAdd(list, null, settings);
                 length++;

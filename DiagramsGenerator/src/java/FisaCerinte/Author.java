@@ -1,4 +1,4 @@
-package FisaCerintelor;
+package FisaCerinte;
 
 /**
  * Created by Cosmin on 5/17/2016.

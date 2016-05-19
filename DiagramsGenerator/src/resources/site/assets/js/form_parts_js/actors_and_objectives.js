@@ -23,8 +23,6 @@
 			$("#actorsList .list-edit").click(function(){
 				var $parent = $(this).closest('.list-item');
 				var index = $parent.attr('index');
-				if(index == undefined)
-					index = '0';
 
 				var not_allowed = getInheretence(index);
 				not_allowed[not_allowed.length] = index;
@@ -42,16 +40,18 @@
 			});
 
 	    	$(".actors_edit_view").makePopup("#actorsList .list-edit");
-			$("#actorsList").dynamiclist();
+			$("#actorsList").dynamiclist({
+				withEvents: true,
+				addCallbackFn: 
+					function(){
+		            	var popup = $("#actorsList").find(".list-item:last").children(".popup"),
+		                    btn = $("#actorsList").find(".list-item:last").children(".list-edit");
+		                popup.makePopup(btn);
+		            }
+            });
 
 			$('#actorsList .list-add.btn').on('click', function(){
-				if(actorsAndObjectivesIndex == 0) {
-					$('#actorsList .list-item:first').attr('index', actorsAndObjectivesIndex);
-				}
-				actorsAndObjectivesIndex++;
-				$('#actorsList .list-item:last').attr('index', actorsAndObjectivesIndex);
-
-				json.actorsAndObjectives[actorsAndObjectivesIndex+''] = {
+				json.actorsAndObjectives[$('#actorsList .list-item:last').attr('index')] = {
 					name: '',
 					objectives: '',
 					inherits: '',
@@ -72,8 +72,6 @@
 				var $parent = $(this).closest('.list-item');
 				var name = $('.actor_name', this).val();
 				var index = $parent.attr('index');
-				if(index == undefined)
-					index = '0';
 
 				$parent.find('span.actors_name').text((name == '')?'Untitled':name);
 				json.actorsAndObjectives[index] = {

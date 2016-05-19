@@ -1,7 +1,7 @@
 /**
  * Created by m on 4/26/16.
  */
-package FisaCerintelor;
+package FisaCerinte;
 
 
 public class Domain {

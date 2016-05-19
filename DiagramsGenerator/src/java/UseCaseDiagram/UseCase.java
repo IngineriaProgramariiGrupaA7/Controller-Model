@@ -16,7 +16,7 @@ import java.util.List;
 public class UseCase {
 
     @XmlElement(name = "actor")
-    List<Actor> actors;
+    List<String> actors;
 
     @XmlElement(name = "action")
     List<Action> actions;
@@ -33,11 +33,9 @@ public class UseCase {
         this.actions = new ArrayList<>();
         this.relationships = new ArrayList<>();
 
-        this.actors.add(0, new Actor());
-        this.actors.get(0).setName("Student");
+        this.actors.add("Student");
 
-        this.actors.add(1, new Actor());
-        this.actors.get(1).setName("Secretariat");
+        this.actors.add("Secretariat");
 
         this.actions.add(0, new Action());
         this.actions.get(0).setName("Actualizare note");
@@ -82,7 +80,7 @@ public class UseCase {
         this.relationships.get(5).setTo("Logare");
     }
 
-    public void setActors(List<Actor> actors) {
+    public void setActors(List<String> actors) {
         this.actors = actors;
     }
 
@@ -94,7 +92,7 @@ public class UseCase {
         this.relationships = relationships;
     }
 
-    public List<Actor> getActors() {
+    public List<String> getActors() {
         return actors;
     }
 

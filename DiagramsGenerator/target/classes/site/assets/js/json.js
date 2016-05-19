@@ -1,4 +1,4 @@
-var json = {
+json = {
 	title: '',
 	description: '',
 	domain: '',
@@ -7,7 +7,3 @@ var json = {
 	stakeholdersAndInterests: {},
 	usecases: {},
 };
-
-var actorsAndObjectivesIndex = 0;
-var stakeholdersAndInterestsIndex = 0;
-var authorsIndex = 0;

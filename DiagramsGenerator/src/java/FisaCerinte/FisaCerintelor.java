@@ -1,8 +1,8 @@
 
-package FisaCerintelor;
+package FisaCerinte;
 
 import ActivityDiagram.ModelActivity;
-import FisaCerintelor.UseCase.*;
+import FisaCerinte.UseCase.FCUseCase;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -18,16 +18,15 @@ import java.util.List;
 public class FisaCerintelor {
 
     public String title;
-    public List<Author> authors;
-    public Description description;
-    public Domain domain;
-    public List<StakeholderAndInterest> stakeholders;
-    public List<ActorAndObjective> actors;
-    public List<FCUseCase> useCases;
-    public ModelActivity activities;
+    public List<String> authors = new ArrayList<>();
+    public String description;
+    public String domain;
+    public List<StakeholderAndInterest> stakeholdersAndInterests = new ArrayList<>();
+    public List<ActorAndObjective> actorsAndObjectives = new ArrayList<>();
+    public List<FCUseCase> usecases = new ArrayList<>();
+    //public ModelActivity activities = new ModelActivity();
 
-
-    public FisaCerintelor(boolean sample){
+ /*   public FisaCerintelor(boolean sample){
 
         title="Title";
 
@@ -187,20 +186,70 @@ public class FisaCerintelor {
         this.useCases.add(fcUseCase);
 
         activities = new ModelActivity();
+    }    */
+
+    public String getTitle() {
+        return title;
     }
 
-    public void setUseCases(List<FCUseCase> useCases) {
-        this.useCases = useCases;
-    }
-    public List<FCUseCase> getUseCases() {
-        return useCases;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public void setModelActivity(ModelActivity activities) {
-        this.activities = activities;
+    public List<String> getAuthors() {
+        return authors;
     }
-    public ModelActivity getModelActivity() {
+
+    public void setAuthors(List<String> authors) {
+        this.authors = authors;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getDomain() {
+        return domain;
+    }
+
+    public void setDomain(String domain) {
+        this.domain = domain;
+    }
+
+    public List<StakeholderAndInterest> getStakeholdersAndInterests() {
+        return stakeholdersAndInterests;
+    }
+
+    public void setStakeholdersAndInterests(List<StakeholderAndInterest> stakeholdersAndInterests) {
+        this.stakeholdersAndInterests = stakeholdersAndInterests;
+    }
+
+    public List<ActorAndObjective> getActorsAndObjectives() {
+        return actorsAndObjectives;
+    }
+
+    public void setActorsAndObjectives(List<ActorAndObjective> actorsAndObjectives) {
+        this.actorsAndObjectives = actorsAndObjectives;
+    }
+
+    public List<FCUseCase> getUsecases() {
+        return usecases;
+    }
+
+    public void setUsecases(List<FCUseCase> usecases) {
+        this.usecases = usecases;
+    }
+
+    /*public ModelActivity getActivities() {
         return activities;
     }
+
+    public void setActivities(ModelActivity activities) {
+        this.activities = activities;
+    }*/
 }
 

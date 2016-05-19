@@ -4,15 +4,22 @@
 		$("#formStakeholders").load("form_parts/stakeholders_interests.html", function(){
 			// stakeholderPopulate();
 			$(".stakeholderEditView").makePopup("#stakeholdersList .list-edit");
-			$("#stakeholdersList").dynamiclist();
+			$("#stakeholdersList").dynamiclist({
+				withEvents: true,
+				addCallbackFn: 
+					function(){
+		            	var popup3 = $("#stakeholdersList").find(".list-item:last").children(".popup"),
+		                    btn3 = $("#stakeholdersList").find(".list-item:last").children(".list-edit");
+		                popup3.makePopup(btn3);
+		            }
+            });
 			
 			//bagati codul aici
 			$('#stakeholdersList .list-add.btn').on('click', function(){
-				if(stakeholdersAndInterestsIndex == 0) {
-					$('#stakeholdersList .list-item:first').attr('index', stakeholdersAndInterestsIndex);
-				}
-				stakeholdersAndInterestsIndex++;
-				$('#stakeholdersList .list-item:last').attr('index', stakeholdersAndInterestsIndex);
+				json.stakeholdersAndInterests[$('#stakeholdersList .list-item:last').attr('index')] = {
+					name: '',
+					interests: '',
+				};
 			});
 
 			$('#stakeholdersList .list-item .list-remove.btn').on('click', function(){
@@ -33,10 +40,8 @@
 				var $parent = $(this).closest('.list-item');
 				var name = $('.stakeholder_title', this).val();
 				var index = $parent.attr('index');
-				if(index == undefined)
-					index = 0;
 
-				$parent.find('span.stakeholder_name').text(name);
+				$parent.find('span.stakeholder_name').text((name == '')?'Untitled':name);
 				json.stakeholdersAndInterests[index] = {
 					name: name,
 					interests: $('.interests_field', this).val(),
@@ -49,7 +54,7 @@
 })(jQuery);
 
 
-//Alex's stuff
+//Alex' stuff
 // function stakeholderPopulate(){
 	// var container = document.getElementById("stakeholders_list");
 	// var buttonAdd = document.createElement("button");

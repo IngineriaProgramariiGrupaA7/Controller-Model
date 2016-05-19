@@ -1,11 +1,9 @@
 package UseCaseDiagram;
 
-import FisaCerintelor.FisaCerintelor;
-import FisaCerintelor.UseCase.FCActor;
-import FisaCerintelor.UseCase.FCRelationship;
-import FisaCerintelor.UseCase.FCUseCase;
-import FisaCerintelor.UseCase.Step;
-import FisaCerintelor.*;
+import FisaCerinte.FisaCerintelor;
+import FisaCerinte.UseCase.FCRelationship;
+import FisaCerinte.UseCase.FCUseCase;
+import FisaCerinte.UseCase.Step;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -13,6 +11,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -34,21 +33,13 @@ public class ModelUseCase {
 
         int i;
 
-        for (FCUseCase fcUseCase : fisaCerintelor.getUseCases()) {
+        for ( FCUseCase fcUseCase : fisaCerintelor.getUsecases()) {
 
             UseCase useCase = new UseCase();
 
             i = 0;
 
-            List<Actor> actors = new ArrayList<>();
-
-            for (FCActor fcActor : fcUseCase.getActors()) {
-
-                actors.add(i, new Actor());
-                actors.get(i).setName(fcActor.getName());
-
-                ++i;
-            }
+            List<String> actors = fcUseCase.getActors().stream().collect(Collectors.toList());
 
             useCase.setActors(actors);
 
@@ -57,12 +48,9 @@ public class ModelUseCase {
             List<Action> actions = new ArrayList<>();
 
             for (Step step : fcUseCase.getSteps()) {
-
                 actions.add(i, new Action());
-                actions.get(i).setName(step.getTitleAction());
+                actions.get(i).setName(step.getTitle());
                 actions.get(i).setDescription(step.getDescription());
-
-                ++i;
             }
 
             useCase.setActions(actions);
@@ -74,9 +62,9 @@ public class ModelUseCase {
             for (FCRelationship fcRelationship : fcUseCase.getRelationships()) {
 
                 relationships.add(i, new Relationship());
-                relationships.get(i).setType(fcRelationship.getType());
-                relationships.get(i).setFrom(fcRelationship.getFrom());
-                relationships.get(i).setTo(fcRelationship.getTo());
+                relationships.get(i).setType(fcRelationship.getRelation());
+                relationships.get(i).setFrom(fcRelationship.getEntity_1());
+                relationships.get(i).setTo(fcRelationship.getEntity_2());
 
                 ++i;
             }
