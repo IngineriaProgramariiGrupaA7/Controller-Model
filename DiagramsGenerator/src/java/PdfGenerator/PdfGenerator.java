@@ -14,6 +14,9 @@ import java.io.FileOutputStream;
 
 /**
  * Created by Cosmin on 5/17/2016.
+ *
+ * Class used to create the text PDF of the requirements document.
+ *
  */
 public class PdfGenerator {
     private FisaCerintelor model;

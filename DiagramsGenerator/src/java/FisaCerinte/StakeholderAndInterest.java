@@ -2,6 +2,8 @@ package FisaCerinte;
 
 /**
  * Created by m on 4/26/16.
+ *
+ * Class used to model stakeholders and interests pairs
  */
 public class StakeholderAndInterest {
     private String name;

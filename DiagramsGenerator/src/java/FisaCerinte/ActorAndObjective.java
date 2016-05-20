@@ -6,6 +6,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Created by m on 4/26/16.
+ *
+ * Class containing pairs of actors and objectives
+ *
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)

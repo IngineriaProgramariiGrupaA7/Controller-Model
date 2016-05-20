@@ -10,6 +10,9 @@ import java.io.StringWriter;
 /**
  *
  * @author Daniel
+ *
+ * Class used to marshall all content and create xml document
+ *
  */
 public class XmlDocument {
 

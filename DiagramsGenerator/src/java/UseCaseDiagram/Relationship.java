@@ -8,6 +8,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  *
  * @author Daniel
+ *
+ * Class that models relationship tags in usecase xml
+ *
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)

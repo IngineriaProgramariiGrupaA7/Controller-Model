@@ -7,6 +7,10 @@ import javax.xml.bind.annotation.*;
 
 /**
  * Created by vlupoaie on 5/16/2016.
+ *
+ * Class used to model an activity element in xml
+ * Contains namespace elements and block elements
+ *
  */
 @XmlRootElement(name = "activity")
 @XmlAccessorType(XmlAccessType.FIELD)

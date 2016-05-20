@@ -7,6 +7,9 @@ import java.io.StringWriter;
 
 /**
  * Created by vlupoaie on 5/17/2016.
+ *
+ * Class used for marshaling and generating the activity xml
+ *
  */
 public class ActivityXmlDiagram {
 

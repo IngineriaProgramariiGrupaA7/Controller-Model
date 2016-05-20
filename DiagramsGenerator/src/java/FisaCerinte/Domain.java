@@ -1,9 +1,12 @@
-/**
- * Created by m on 4/26/16.
- */
+
 package FisaCerinte;
 
-
+/**
+ * Created by m on 4/26/16.
+ *
+ * Class used to model a domain in requirements diagram
+ *
+ */
 public class Domain {
 
     public Domain(String domain){

@@ -5,6 +5,10 @@ import java.util.List;
 
 /**
  * Created by vlupoaie on 5/17/2016.
+ *
+ * Class modeling a block tag in xml
+ * Contains chains of steps
+ *
  */
 @XmlRootElement(name = "block")
 @XmlAccessorType(XmlAccessType.FIELD)

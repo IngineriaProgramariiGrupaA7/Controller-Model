@@ -16,6 +16,10 @@ import java.util.stream.Collectors;
 /**
  *
  * @author Daniel
+ *
+ * Class that models the diagram root tag in usecase xml
+ * Contains objects of type usecase
+ *
  */
 @XmlRootElement(name = "diagram")
 @XmlAccessorType(XmlAccessType.FIELD)

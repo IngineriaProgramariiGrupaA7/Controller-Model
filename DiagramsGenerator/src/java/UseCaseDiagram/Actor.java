@@ -7,6 +7,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  *
  * @author Daniel
+ *
+ * Class that models actors tags in usecase xml
+ *
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)

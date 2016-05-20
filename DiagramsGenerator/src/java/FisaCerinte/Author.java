@@ -2,6 +2,9 @@ package FisaCerinte;
 
 /**
  * Created by Cosmin on 5/17/2016.
+ *
+ * Class modeling an actor in requirements document
+ *
  */
 public class Author {
 

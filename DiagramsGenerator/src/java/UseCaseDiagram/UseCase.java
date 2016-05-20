@@ -10,6 +10,10 @@ import java.util.List;
 /**
  *
  * @author Daniel
+ *
+ * Class that models usecases tags in usecase xml
+ * Contains actors, actions, relationships
+ *
  */
 @XmlRootElement(name = "usecase")
 @XmlAccessorType(XmlAccessType.FIELD)

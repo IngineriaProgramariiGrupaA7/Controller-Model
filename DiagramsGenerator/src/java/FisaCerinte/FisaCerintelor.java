@@ -1,6 +1,4 @@
-
 package FisaCerinte;
-
 import ActivityDiagram.ModelActivity;
 import FisaCerinte.UseCase.FCUseCase;
 
@@ -12,6 +10,10 @@ import java.util.List;
 
 /**
  * Created by m on 4/26/16.
+ *
+ * Class used to model a requirements document.
+ * Contains all other objects modelling actors, objectives, use cases, stakeholders and objectives....
+ *
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
