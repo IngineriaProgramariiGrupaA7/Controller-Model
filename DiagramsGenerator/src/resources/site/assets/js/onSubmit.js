@@ -27,6 +27,16 @@ $(document).ready(function(){
 			return false;
 		}
 
+		/*//nu merge
+		for (var i in json.usecases[0].actors) {
+			for (var j in json.usecases[0].actors) {
+				if(json.usecases[0].actors[i] == json.usecases[0].actors[j]){
+					alert("You cannot add the same actor twice");
+					return false;
+				}
+			}
+		}*/
+
 		return true;
 
 	};

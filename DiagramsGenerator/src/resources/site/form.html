@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>Software Engineering - Form</title>
 
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
     <link href='https://fonts.googleapis.com/css?family=Roboto:300,500' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="assets/css/style.css">
@@ -26,16 +28,13 @@
             <div class="formButtons flex spaceBetween buttons">
                 <button onclick="location.href='index.html'" id="backBtn" class="blueBtn">go back</button>
 
-                <!-- <input type="button" id="get_file" value="Grab file"> -->
-                <!-- <input type="file" id="json_uploader"> -->
-
                 <div id="openCase" class="hidden popup flex containerPopup scroll">
                     <!--INCEPE POPUP-->
                     <div class="flex column simplePopup center">
                         <div class="formButtons flex spaceBetween fileButtons">
                             <div class="file_upload blueBtn">
                                 BROWSE
-                                <input type="file" id="json_uploader" name="file_upload">
+                                <input type="file" accept=".json" id="json_uploader" name="file_upload">
                             </div>
                         </div>
 
@@ -47,7 +46,18 @@
                     </div>
                 </div>
 
-                <button onclick="location.href='preview.html?json='+JSON.stringify(json)" id="previewBtn" class="blueBtn">PREVIEW</button>
+
+
+
+
+
+
+
+                <button onclick="window.open(
+  						'preview.html?json='+JSON.stringify(json),
+  						'_blank'
+						);"
+                        id="previewBtn" class="blueBtn">PREVIEW</button>
             </div>
         </div>
 
@@ -154,7 +164,7 @@
                 <button id="resetBtn" class="pinkBtn">RESET</button>
                 <div class="formButtons2 flex row">
                     <button id="saveDraftBtn" class="greenBtn">SAVE DRAFT</button>
-                    <form method="post" action="finish.html" id="frmSubmit">
+                    <form id="frmSubmit">
                         <input type="hidden" name="json" id="json_field"/>
                         <button id="submitBtn" class="blueBtn">SUBMIT</button>
                     </form>

@@ -15,24 +15,31 @@ import java.util.Set;
 
 
 // TODO: Auto-generated Javadoc
+
 /**
  * The Class DiagramGenerator.
  */
 public class DiagramGenerator {
-    
-    /** Bufferul ce contine informatia din index.html */
+
+    /**
+     * Bufferul ce contine informatia din index.html
+     */
     private BufferedWriter html;
-    
-    /** The diagram. */
+
+    /**
+     * The diagram.
+     */
     private Diagram diagram;
 
     private ClassLoader classLoader = getClass().getClassLoader();
-    
-    /** The value of constant gravity. */
-    private final int valueOfConstantGravity=-2500;
 
     /**
-     * Se ataseaza tagul de head 
+     * The value of constant gravity.
+     */
+    private final int valueOfConstantGravity = -2500;
+
+    /**
+     * Se ataseaza tagul de head
      */
     private void attachHead() {
         String head = null;
@@ -63,12 +70,12 @@ public class DiagramGenerator {
      * Verifica daca nu exista duplicate in lista de componente
      *
      * @param components the components
-     * @param id the id
+     * @param id         the id
      * @return true, if successful
      */
     private boolean notDuplicate(List<? extends Component> components, String id) {
-        for(Component component : components) {
-            if(component.getId().equals(id)) {
+        for (Component component : components) {
+            if (component.getId().equals(id)) {
                 return false;
             }
         }
@@ -86,8 +93,8 @@ public class DiagramGenerator {
         Set<Component> set = new HashSet<Component>();
 
         set.addAll(list1);
-        for(Component component : list2) {
-            if(notDuplicate(list1,component.getId())) {
+        for (Component component : list2) {
+            if (notDuplicate(list1, component.getId())) {
                 set.add(component);
             }
         }
@@ -102,28 +109,28 @@ public class DiagramGenerator {
      */
     private List<Component> getAllActorsFromDiagram(List<Usecase> usecases) {
         List<Component> actors = new ArrayList<>();
-        for(Usecase usecase : usecases) {
+        for (Usecase usecase : usecases) {
             List<Actor> usecaseActors = usecase.getActors();
-            actors = union(actors,usecaseActors);
+            actors = union(actors, usecaseActors);
         }
         return actors;
     }
 
     /**
-     *	Se preiau toate actiunile din diagrama
+     * Se preiau toate actiunile din diagrama
      *
      * @param usecases the usecases
      * @return the all actions from diagram
      */
     private List<Component> getAllActionsFromDiagram(List<Usecase> usecases) {
         List<Component> actions = new ArrayList<>();
-        for(Usecase usecase : usecases) {
+        for (Usecase usecase : usecases) {
             List<Action> usecaseActions = usecase.getActions();
-            actions = union(actions,usecaseActions);
+            actions = union(actions, usecaseActions);
         }
         return actions;
     }
-    
+
     /**
      * Se ataseaza actorii si actiunile diagramei
      *
@@ -134,17 +141,20 @@ public class DiagramGenerator {
         NodeGenerator nodeGenerator = new NodeGenerator();
         List<Usecase> usecases = diagram.getUsecases();
         List<Component> actors = getAllActorsFromDiagram(usecases);
-        for(Component actor : actors) {
+        for (Component actor : actors) {
             String node = nodeGenerator.generateNode(actor);
             nodes.append(node).append(",\n\t\t\t\t");
         }
         List<Component> actions = getAllActionsFromDiagram(usecases);
-        for(int i=0;i<actions.size()-1;i++) {
-            String node = nodeGenerator.generateNode(actions.get(i));
-            nodes.append(node).append(",\n\t\t\t\t");
+        if (actions.size() > 0) {
+            for (int i = 0; i < actions.size() - 1; i++) {
+                String node = nodeGenerator.generateNode(actions.get(i));
+                nodes.append(node).append(",\n\t\t\t\t");
+            }
+            String lastNode = nodeGenerator.generateNode(actions.get(actions.size() - 1));
+            nodes.append(lastNode);
         }
-        String lastNode = nodeGenerator.generateNode(actions.get(actions.size() - 1));
-        nodes.append(lastNode).append("\n\t\t\t];\n");
+        nodes.append("\n\t\t\t];\n");
         html.write(String.valueOf(nodes));
     }
 
@@ -157,21 +167,24 @@ public class DiagramGenerator {
         StringBuilder edges = new StringBuilder("\n\t\t\tedges = [\n\t\t\t\t");
         EdgeGenerator edgeGenerator = new EdgeGenerator();
         List<Usecase> usecases = diagram.getUsecases();
-        for (int k=0;k<usecases.size()-1;k++) {
+        for (int k = 0; k < usecases.size() - 1; k++) {
             List<Relation> relations = usecases.get(k).getEdges();
             for (Relation relation : relations) {
                 String edge = edgeGenerator.generateEdge(relation, usecases.get(k).getColor());
                 edges.append(edge).append(",\n\t\t\t\t");
             }
         }
-        Usecase lastUsecase = usecases.get(usecases.size()-1);
+        Usecase lastUsecase = usecases.get(usecases.size() - 1);
         List<Relation> relations = lastUsecase.getEdges();
-        for(int i=0;i<relations.size()-1;i++) {
-            String edge = edgeGenerator.generateEdge(relations.get(i), lastUsecase.getColor());
-            edges.append(edge).append(",\n\t\t\t\t");
+        if (relations.size() > 0) {
+            for (int i = 0; i < relations.size() - 1; i++) {
+                String edge = edgeGenerator.generateEdge(relations.get(i), lastUsecase.getColor());
+                edges.append(edge).append(",\n\t\t\t\t");
+            }
+            String lastEdge = edgeGenerator.generateEdge(relations.get(relations.size() - 1), lastUsecase.getColor());
+            edges.append(lastEdge);
         }
-        String lastEdge = edgeGenerator.generateEdge(relations.get(relations.size()-1),lastUsecase.getColor());
-        edges.append(lastEdge).append("\n\t\t\t];\n\n");
+        edges.append("\n\t\t\t];\n\n");
         html.write(String.valueOf(edges));
     }
 
@@ -185,8 +198,8 @@ public class DiagramGenerator {
         try {
             File file = new File(classLoader.getResource("site/diagram/options.js").getFile());
             options = new String(Files.readAllBytes(file.toPath()), StandardCharsets.UTF_8);
-            int constantGravity=this.valueOfConstantGravity*diagram.getUsecases().size();
-            html.write("var valoare="+constantGravity+";\n");
+            int constantGravity = this.valueOfConstantGravity * diagram.getUsecases().size();
+            html.write("var valoare=" + constantGravity + ";\n");
             html.write(options);
         } catch (IOException e) {
             e.printStackTrace();
@@ -229,9 +242,9 @@ public class DiagramGenerator {
 
     /**
      * Genereaza diagrama prin parsearea xml-ului, dupa care se genereaza
-     *	continutului tagului head si body, impreuna cu optiunile lor specifice.
+     * continutului tagului head si body, impreuna cu optiunile lor specifice.
      *
-     * @param xmlPath the xml path
+     * @param xmlPath  the xml path
      * @param htmlPath the html path
      * @throws IOException Signals that an I/O exception has occurred.
      */

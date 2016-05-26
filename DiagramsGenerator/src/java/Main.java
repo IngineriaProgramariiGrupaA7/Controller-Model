@@ -137,11 +137,15 @@ public class Main {
                 usecase.getExtensions().forEach(extension -> {
                     if (extension.getStep() != null) {
                         Extension ex = new Extension();
-                        ex.setDescription(extension.getDescription());
-                        ex.setTitle(extension.getTitle());
-                        ex.setStep(usecase.getSteps().get(Integer.parseInt(extension.getStep())).getTitle());
 
-                        extensions.add(ex);
+                        if (extension.getStep() != null) {
+
+                            ex.setDescription(extension.getDescription());
+                            ex.setTitle(extension.getTitle());
+                            ex.setStep(usecase.getSteps().get(Integer.parseInt(extension.getStep())).getTitle());
+
+                            extensions.add(ex);
+                        }
                     }
                 });
                 useCase.setExtensions(extensions);
@@ -153,22 +157,27 @@ public class Main {
                 List<FCRelationship> relationships = new ArrayList<FCRelationship>();
                 usecase.getRelationships().forEach(relationship -> {
                     FCRelationship rl = new FCRelationship();
-                    rl.setRelation(relationship.getRelation());
 
-                    String[] rel = relationship.getEntity_1().split("_");
-                    rl.setEntity_1(
-                            rel[0].equals("step") ?
-                                usecase.getSteps().get(Integer.parseInt(rel[1])).getTitle()
-                                    : actors.get(Integer.parseInt(rel[1]))
-                    );
+                    if (relationship.getEntity_1() != null && relationship.getEntity_2() != null) {
 
-                    rel = relationship.getEntity_2().split("_");
-                    rl.setEntity_2(
-                            rel[0].equals("step") ?
-                                    usecase.getSteps().get(Integer.parseInt(rel[1])).getTitle()
-                                    : actors.get(Integer.parseInt(rel[1]))
-                    );
-                    relationships.add(rl);
+                        rl.setRelation(relationship.getRelation());
+
+                        String[] rel = relationship.getEntity_1().split("_");
+                        rl.setEntity_1(
+                                rel[0].equals("step") ?
+                                        usecase.getSteps().get(Integer.parseInt(rel[1])).getTitle()
+                                        : actors.get(Integer.parseInt(rel[1]))
+                        );
+
+                        rel = relationship.getEntity_2().split("_");
+                        rl.setEntity_2(
+                                rel[0].equals("step") ?
+                                        usecase.getSteps().get(Integer.parseInt(rel[1])).getTitle()
+                                        : actors.get(Integer.parseInt(rel[1]))
+                        );
+                        relationships.add(rl);
+
+                    }
                 });
                 useCase.setRelationships(relationships);
 
