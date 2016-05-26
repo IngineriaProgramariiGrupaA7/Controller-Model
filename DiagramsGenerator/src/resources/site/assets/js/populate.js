@@ -1,10 +1,12 @@
 var jsonParser = function(data) {
 
+	$('#openCase').addClass('hidden');
+
 	//update the output json, 
 	//as filling the form programatically 
 	//doesn't trigger the normal events;
 	json = data;
-	
+
 	//title
 	$("#titleid").val(data.title);
 
@@ -55,13 +57,14 @@ var jsonParser = function(data) {
 		}
 		$("#usecase_list").find(".use_case_title:last").val(value.title);
 		$("#usecase_list").find(".objective_field:last").val(value.objective);
-		
+
 		//actors
 		$.each(value.actors, function( actorIndex, actorValue){
 			if(actorIndex != 0){
 				$(".actors_list:last .list-add-2").trigger("click"); //asta face o eroare si nu mai merge save;
 			}
-			$(".actors_list:last .actors:last").val(actorValue);
+			//alert(actorValue);
+			$(".actors_list:last").find(".actors:last").val(actorValue);
 		});
 
 		//steps
@@ -78,6 +81,7 @@ var jsonParser = function(data) {
 			if(extIndex != 0){
 				$(".extensions_list:last .list-add-2").trigger("click");
 			}
+			$(".extensions_list:last .steps:last").val(extValue.step);
 			$(".extensions_list:last .extension_title:last").val(extValue.title);
 			$(".extensions_list:last .description:last").val(extValue.description);
 		});
@@ -95,12 +99,44 @@ var jsonParser = function(data) {
 		$("#usecase_list").find(".saveBtnUC:last").trigger("click");
 	});
 
-	
+
+}
+
+function readSingleFile(e) {
+	var file = e.target.files[0];
+	if (!file) {
+		return;
+	}
+	var reader = new FileReader();
+	reader.onload = function(e) {
+		var contents = e.target.result;
+		jsonParser(JSON.parse(contents));
+	};
+	reader.readAsText(file);
 }
 
 $(document).ready(function() {
 
+	document.getElementById('json_uploader').addEventListener('change', readSingleFile, false);
 
-	$.getJSON( "assets/window.json", jsonParser);
+	var getUrlParameter = function getUrlParameter(sParam) {
+		var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+			sURLVariables = sPageURL.split('&'),
+			sParameterName,
+			i;
 
+		for (i = 0; i < sURLVariables.length; i++) {
+			sParameterName = sURLVariables[i].split('=');
+
+			if (sParameterName[0] === sParam) {
+				return sParameterName[1] === undefined ? true : sParameterName[1];
+			}
+		}
+	};
+	var OK = decodeURIComponent(window.location.search.substring(1));
+
+
+	if(OK=="open"){
+		$('#openCase').removeClass('hidden');
+	}
 });

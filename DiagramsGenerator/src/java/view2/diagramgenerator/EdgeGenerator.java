@@ -29,10 +29,10 @@ public class EdgeGenerator {
             case "generalization":
                 edge += getInheritenceOptions();
                 break;
-            case "include":
+            case "inclusion":
                 edge += getInclusionOptions();
                 break;
-            case "extend":
+            case "extension":
                 edge += getExtensionOptions();
                 break;
         }

@@ -1,23 +1,20 @@
 /*************************************
 ************ COLOR CHART *************
 **************************************
-
 text_visible		#444444
 text_placeholder	#BBBBBB
 text_btn			#777777
 btn_active			#E6E6E6
 section_bg			#F5F5F5
-
 _cyan				#3EC4B5
 _pink				#DF739E
 _green				#3EC46D
-
 */
 ::selection {
-  background: #E6E6E6; /* WebKit/Blink Browsers */
+	background: #E6E6E6; /* WebKit/Blink Browsers */
 }
 ::-moz-selection {
-  background: #E6E6E6; /* Gecko Browsers */
+	background: #E6E6E6; /* Gecko Browsers */
 }
 
 a {
@@ -154,11 +151,20 @@ body {
 	box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1), 2px 2px 7px 0 rgba(0, 0, 0, 0.1);
 }
 
+.simplePopup {
+	margin: auto;
+	padding: 40px;
+	background-color: #F5F5F5;
+	border-radius: 3px;
+	box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1), 2px 2px 7px 0 rgba(0, 0, 0, 0.1);
+}
+
+
 .buttons button {
 	cursor: pointer;
 	border: 0;
 	font-family: 'Roboto', sans-serif;
-	text-transform: uppercase; 
+	text-transform: uppercase;
 	font-weight: 500;
 	padding: 7px 10px;
 	margin: 4px;
@@ -206,7 +212,7 @@ form {
 }
 
 *:focus {
-    outline: none;
+	outline: none;
 }
 
 input[name="authorField"] {
@@ -230,6 +236,21 @@ textarea{
 	margin-bottom: 5px;
 }
 
+input.file{
+	box-sizing: border-box;
+	font-family: 'Roboto Condensed', sans-serif;
+	background: #F5F5F5;
+	color: #777777;
+	font-size: 17px;
+	width: 100%;
+	padding: 5px 0;
+	border-top: 0;
+	border-left: 0;
+	border-right: 0;
+	border-bottom: 2px #BBBBBB solid;
+	outline: 0;
+}
+
 select {
 	box-sizing: border-box;
 	font-family: 'Roboto Condensed', sans-serif;
@@ -247,13 +268,13 @@ select {
 }
 
 select option:checked {
-    box-shadow: 0 0 10px 100px #3EC4B5 inset;
-    color: white;
+	box-shadow: 0 0 10px 100px #3EC4B5 inset;
+	color: white;
 }
 
-select:focus > option:checked { 
-    background: #3EC4B5 !important;
-    color: white;
+select:focus > option:checked {
+	background: #3EC4B5 !important;
+	color: white;
 }
 
 textarea {
@@ -369,9 +390,6 @@ svg {
 	overflow: hidden;
 }
 
-.formButtons {
-	color: #444;
-}
 
 .btn{
 	background-color: white;
@@ -381,7 +399,7 @@ svg {
 	border: 0;
 	font-family: 'Roboto', sans-serif;
 	font-size: 12px;
-	text-transform: uppercase; 
+	text-transform: uppercase;
 	font-weight: 500;
 	padding: 4px 7px;
 	border-radius: 3px;
@@ -395,7 +413,7 @@ svg {
 }
 
 .btn:active{
-	background-color: rgba(0, 0, 0, 0.1); 
+	background-color: rgba(0, 0, 0, 0.1);
 }
 
 .popup {
@@ -403,7 +421,7 @@ svg {
 }
 
 @media screen and (max-width: 480px) {
-    .buttons button {
+	.buttons button {
 		flex: 1;
 	}
 }
@@ -448,4 +466,49 @@ svg {
 
 .sheetContainer ul li:not(:last-child):after{
 	content: ',';
+}
+
+#authorsList{
+	width:100%;
+}
+
+.fileButtons .file_upload {
+	cursor: pointer;
+	border: 0;
+	font-family: 'Roboto', sans-serif;
+	text-transform: uppercase;
+	font-weight: 500;
+	padding: 7px 10px;
+	margin: 4px;
+	border-radius: 3px;
+	font-size: 15px;
+	box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1), 2px 2px 5px 0 rgba(0, 0, 0, 0.1);
+	color: white;
+}
+
+.fileButtons .file_upload:active {
+	background-color: #E6E6E6;
+}
+
+
+.file_upload {
+	cursor: pointer;
+	width: 75px;
+	height: 25px;
+	text-align: center;
+	overflow: hidden;
+	position: relative;
+	line-height: 25px;
+}
+
+.file_upload:hover {
+	background-color: white;
+	color: #3EC4B5;
+}
+
+.file_upload input {
+	cursor: pointer;
+	opacity: 0;
+	position: absolute;
+	left: 0;
 }

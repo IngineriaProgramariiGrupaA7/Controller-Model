@@ -4,6 +4,10 @@
 import ActivityDiagram.ActivityXmlDiagram;
 import ActivityDiagram.ModelActivity;
 import FisaCerinte.FisaCerintelor;
+import FisaCerinte.UseCase.Extension;
+import FisaCerinte.UseCase.FCRelationship;
+import FisaCerinte.UseCase.FCUseCase;
+import FisaCerinte.UseCase.Step;
 import PdfGenerator.PdfGenerator;
 import UseCaseDiagram.ModelUseCase;
 import UseCaseDiagram.XmlDocument;
@@ -19,6 +23,9 @@ import java.io.StringWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.rmi.server.ExportException;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 import static spark.Spark.*;
 
@@ -111,7 +118,64 @@ public class Main {
         }));
 
         get("/diagram", (request, response) -> {
-            Diagram diagram = new Diagram(fisaCerintelorJson.getUsecases());
+            List<FCUseCase> usecases = fisaCerintelorJson.getUsecases();
+            List<FCUseCase> useCasesForGraph = new LinkedList<FCUseCase>();
+
+            usecases.forEach(usecase -> {
+                FCUseCase useCase = new FCUseCase();
+
+                useCase.setTitle(usecase.getTitle());
+                useCase.setObjective(usecase.getObjective());
+
+                List<String> actors = new ArrayList<String>();
+                usecase.getActors().forEach(actor -> {
+                    actors.add(fisaCerintelorJson.getActorsAndObjectives().get(Integer.parseInt(actor)).getName());
+                });
+                useCase.setActors(actors);
+
+                List<Extension> extensions = new ArrayList<Extension>();
+                usecase.getExtensions().forEach(extension -> {
+                    if (extension.getStep() != null) {
+                        Extension ex = new Extension();
+                        ex.setDescription(extension.getDescription());
+                        ex.setTitle(extension.getTitle());
+                        ex.setStep(usecase.getSteps().get(Integer.parseInt(extension.getStep())).getTitle());
+
+                        extensions.add(ex);
+                    }
+                });
+                useCase.setExtensions(extensions);
+
+                List<Step> steps = new ArrayList<Step>();
+                usecase.getSteps().forEach(steps::add);
+                useCase.setSteps(steps);
+
+                List<FCRelationship> relationships = new ArrayList<FCRelationship>();
+                usecase.getRelationships().forEach(relationship -> {
+                    FCRelationship rl = new FCRelationship();
+                    rl.setRelation(relationship.getRelation());
+
+                    String[] rel = relationship.getEntity_1().split("_");
+                    rl.setEntity_1(
+                            rel[0].equals("step") ?
+                                usecase.getSteps().get(Integer.parseInt(rel[1])).getTitle()
+                                    : actors.get(Integer.parseInt(rel[1]))
+                    );
+
+                    rel = relationship.getEntity_2().split("_");
+                    rl.setEntity_2(
+                            rel[0].equals("step") ?
+                                    usecase.getSteps().get(Integer.parseInt(rel[1])).getTitle()
+                                    : actors.get(Integer.parseInt(rel[1]))
+                    );
+                    relationships.add(rl);
+                });
+                useCase.setRelationships(relationships);
+
+                useCasesForGraph.add(useCase);
+            });
+
+            Diagram diagram = new Diagram(useCasesForGraph);
             DiagramGenerator generator = new DiagramGenerator();
             generator.generateDiagram(diagram, "site/diagram/index.html");
 
@@ -131,7 +195,7 @@ public class Main {
 
             fisaCerintelorJson = fisaCerinte;
             String responseBody = objectMapper.writeValueAsString(fisaCerinte);
-            System.out.println(fisaCerinte);
+            System.out.println(responseBody);
 
             if (responseBody.equals("failed")) {
                 response.status(HttpStatus.INTERNAL_SERVER_ERROR_500);

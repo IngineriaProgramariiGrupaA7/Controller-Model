@@ -247,9 +247,7 @@ public class DiagramGenerator {
 
     public void generateDiagram(Diagram diagram, String htmlPath) throws IOException {
         this.diagram = diagram;
-
-        File file = new File(classLoader.getResource(htmlPath).getFile());
-        html = new BufferedWriter(new FileWriter(file));
+        html = new BufferedWriter(new FileWriter(classLoader.getResource(htmlPath).getPath()));
 
         attachHead();
         attachBody();

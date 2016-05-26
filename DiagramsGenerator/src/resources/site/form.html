@@ -18,18 +18,36 @@
 
 
         <h1 class="title">Sheet Editor</h1>
-
         <p class="description">
             Complete the form to generate diagrams.
         </p>
 
-
         <div class="formAll flex column">
             <div class="formButtons flex spaceBetween buttons">
                 <button onclick="location.href='index.html'" id="backBtn" class="blueBtn">go back</button>
-                <button onclick="location.href='preview.html?json='+JSON.stringify(json)" id="previewBtn"
-                        class="blueBtn">PREVIEW
-                </button>
+
+                <!-- <input type="button" id="get_file" value="Grab file"> -->
+                <!-- <input type="file" id="json_uploader"> -->
+
+                <div id="openCase" class="hidden popup flex containerPopup scroll">
+                    <!--INCEPE POPUP-->
+                    <div class="flex column simplePopup center">
+                        <div class="formButtons flex spaceBetween fileButtons">
+                            <div class="file_upload blueBtn">
+                                BROWSE
+                                <input type="file" id="json_uploader" name="file_upload">
+                            </div>
+                        </div>
+
+                        <div class="formAll flex column">
+                            <div class="formButtons flex center buttons">
+                                <button onclick="location.href='index.html'" class="pinkBtn close cancelBtn">cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button onclick="location.href='preview.html?json='+JSON.stringify(json)" id="previewBtn" class="blueBtn">PREVIEW</button>
             </div>
         </div>
 
@@ -39,11 +57,9 @@
             <div class="formSection flex column">
                 <div class="formSectionTitle flex spaceBetween">
                     <a href="#" class="">Title</a>
-
                     <div class="arrowWrap">
                         <svg viewBox="0 0 33 22" width="12" height="9">
-                            <path fill="#444444" id="arrow"
-                                  d="M0,16.083L16,0l16,16.083L27.083,22L16,11L6,22L0,16.083z"/>
+                            <path fill="#444444" id="arrow" d="M0,16.083L16,0l16,16.083L27.083,22L16,11L6,22L0,16.083z"/>
                         </svg>
                     </div>
                 </div>
@@ -54,11 +70,9 @@
             <div class="formSection flex column">
                 <div class="formSectionTitle flex spaceBetween">
                     <a href="#" class="">Authors</a>
-
                     <div class="arrowWrap">
                         <svg viewBox="0 0 33 22" width="12" height="9">
-                            <path fill="#444444" id="arrow"
-                                  d="M0,16.083L16,0l16,16.083L27.083,22L16,11L6,22L0,16.083z"/>
+                            <path fill="#444444" id="arrow" d="M0,16.083L16,0l16,16.083L27.083,22L16,11L6,22L0,16.083z"/>
                         </svg>
                     </div>
                 </div>
@@ -69,11 +83,9 @@
             <div class="formSection flex column">
                 <div class="formSectionTitle flex spaceBetween">
                     <a href="#" class="">Description</a>
-
                     <div class="arrowWrap">
                         <svg viewBox="0 0 33 22" width="12" height="9">
-                            <path fill="#444444" id="arrow"
-                                  d="M0,16.083L16,0l16,16.083L27.083,22L16,11L6,22L0,16.083z"/>
+                            <path fill="#444444" id="arrow" d="M0,16.083L16,0l16,16.083L27.083,22L16,11L6,22L0,16.083z"/>
                         </svg>
                     </div>
                 </div>
@@ -84,11 +96,9 @@
             <div class="formSection flex column">
                 <div class="formSectionTitle flex spaceBetween">
                     <a href="#" class="">Domain</a>
-
                     <div class="arrowWrap">
                         <svg viewBox="0 0 33 22" width="12" height="9">
-                            <path fill="#444444" id="arrow"
-                                  d="M0,16.083L16,0l16,16.083L27.083,22L16,11L6,22L0,16.083z"/>
+                            <path fill="#444444" id="arrow" d="M0,16.083L16,0l16,16.083L27.083,22L16,11L6,22L0,16.083z"/>
                         </svg>
                     </div>
                 </div>
@@ -99,11 +109,9 @@
             <div class="formSection flex column">
                 <div class="formSectionTitle flex spaceBetween">
                     <a href="#" class="">Stakeholders and Interests</a>
-
                     <div class="arrowWrap">
                         <svg viewBox="0 0 33 22" width="12" height="9">
-                            <path fill="#444444" id="arrow"
-                                  d="M0,16.083L16,0l16,16.083L27.083,22L16,11L6,22L0,16.083z"/>
+                            <path fill="#444444" id="arrow" d="M0,16.083L16,0l16,16.083L27.083,22L16,11L6,22L0,16.083z"/>
                         </svg>
                     </div>
                 </div>
@@ -114,11 +122,9 @@
             <div class="formSection flex column">
                 <div class="formSectionTitle flex spaceBetween">
                     <a href="#" class="">Actors and Objectives</a>
-
                     <div class="arrowWrap">
                         <svg viewBox="0 0 33 22" width="12" height="9">
-                            <path fill="#444444" id="arrow"
-                                  d="M0,16.083L16,0l16,16.083L27.083,22L16,11L6,22L0,16.083z"/>
+                            <path fill="#444444" id="arrow" d="M0,16.083L16,0l16,16.083L27.083,22L16,11L6,22L0,16.083z"/>
                         </svg>
                     </div>
                 </div>
@@ -129,11 +135,9 @@
             <div class="formSection flex column">
                 <div class="formSectionTitle flex spaceBetween">
                     <a href="#" class="">Usecases</a>
-
                     <div class="arrowWrap">
                         <svg viewBox="0 0 33 22" width="12" height="9">
-                            <path fill="#444444" id="arrow"
-                                  d="M0,16.083L16,0l16,16.083L27.083,22L16,11L6,22L0,16.083z"/>
+                            <path fill="#444444" id="arrow" d="M0,16.083L16,0l16,16.083L27.083,22L16,11L6,22L0,16.083z"/>
                         </svg>
                     </div>
                 </div>
@@ -150,7 +154,7 @@
                 <button id="resetBtn" class="pinkBtn">RESET</button>
                 <div class="formButtons2 flex row">
                     <button id="saveDraftBtn" class="greenBtn">SAVE DRAFT</button>
-                    <form method="post" action="finish.html" id="">
+                    <form method="post" action="finish.html" id="frmSubmit">
                         <input type="hidden" name="json" id="json_field"/>
                         <button id="submitBtn" class="blueBtn">SUBMIT</button>
                     </form>
@@ -161,6 +165,10 @@
 </div>
 </div>
 </div>
+
+
+
+
 <!-- adaugare HTML prin script javascript/jquery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="assets/js/jquery-2.1.4.min.js"><\/script>')</script>
@@ -174,9 +182,11 @@
 <script src="assets/js/form_parts_js/stakeholders_and_interests.js"></script>
 <script src="assets/js/form_parts_js/actors_and_objectives.js"></script>
 <script src="assets/js/form_parts_js/usecases.js"></script>
+<script src="assets/js/FileSaver.min.js"></script>
 <script src="assets/js/buttons.js"></script>
 <script src="assets/js/json.js"></script>
 <script src="assets/js/onSubmit.js"></script>
 <script src="assets/js/populate.js"></script>
+
 </body>
 </html>

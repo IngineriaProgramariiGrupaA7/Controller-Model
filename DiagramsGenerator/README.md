@@ -8,7 +8,8 @@ Rulati Main.java ... si serverul ruleaza pe <br/>
             localhost:8080<br/>
 
 Paths -><br/>
-   / -> site-ul luat de la view1<br/>
-   GET /fisaCerinte  -> model JSON obiect FisaCerinte<br/>
-  POST /fisaCerinte -> genereaza un xml dupa obiectul trimis in request body<br/>
-
+    / -> enter the site <br/>
+    /fisaCerinte -> post cu fisa cerinte <br/>
+    /xml/useCase -> xml use case <br/>
+    /xml/activity -> diagrama activitati <br/>
+    /xml/download -> download fisa cerinte <br/>
